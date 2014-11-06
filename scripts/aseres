@@ -1,0 +1,2 @@
+#!/bin/sh
+xterm aseprite -resolution 1024x768
