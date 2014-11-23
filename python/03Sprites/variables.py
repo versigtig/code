@@ -1,0 +1,3 @@
+class GLOBALS():
+	FPS = 60
+	RESOLUTION = (640, 480)
