@@ -8,7 +8,7 @@ Testing out how sprites work.
 # Import
 import pygame
 import random
-import game_objects
+from game_objects import Block
 from my_color import COLORS
 from variables import GLOBALS
 
@@ -30,7 +30,7 @@ all_sprites_list = pygame.sprite.Group()
 #Create enemy blocks.
 for i in range(50):
 	#This represents an enemy block.
-	block = Block(COLORS.BLUE, 20, 15)
+	block = Block(COLORS.BLUE, 20, 20)
 
 	#Set a random location for the block
 	block.rect.x = random.randrange(GLOBALS.RESOLUTION[0])
@@ -41,7 +41,7 @@ for i in range(50):
 	all_sprites_list.add(block)
 
 #Player block.
-player = Block(RED, 30, 25)
+player = Block(COLORS.RED, 30, 30)
 all_sprites_list.add(player)
 
 #Loop until close button.
@@ -49,6 +49,9 @@ done = False
 
 #Score
 score = 0
+
+#Can't see that mouse pointer
+pygame.mouse.set_visible(False)
 
 ''' --- Main Game Loop --- '''
 while not done:
@@ -62,7 +65,7 @@ while not done:
 	## Game logic ##
 
 	# Get mouse position
-	pos = pygame.mous.get_pos()
+	pos = pygame.mouse.get_pos()
 	
 	#Get the x and y out of the list then set them to the mouse position.
 	player.rect.x = pos[0] 
@@ -75,10 +78,13 @@ while not done:
 		score += 1
 		print(score)
 	
+	#Move all the enemy blocks
+	block_list.update()
+	
 	## Drawing ##
 	
 	# Wipe screen
-	screen.fill(WHITE)
+	screen.fill(COLORS.WHITE)
 	
 	# Draw all the sprites
 
@@ -88,6 +94,6 @@ while not done:
 	
 	pygame.display.flip()
 	
-	clock.tick(GLOBAL.FPS)
+	clock.tick(GLOBALS.FPS)
 
 pygame.quit()
